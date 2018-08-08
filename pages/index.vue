@@ -9,8 +9,8 @@
       v-if="mdsData.mdsCollections"
     >
       <card
-        v-for="(entry, key) in entriesArray(mdsData.mdsCollections[0]['fido-mds1'].entries)"
-        :key="key"
+        v-for="entry in entriesArray(mdsData.mdsCollections[0]['fido-mds1'].entries)"
+        :key="entry.aaid"
       >
         <h2
           v-html="entry.description.replace(/_/g, '_<wbr>')"
@@ -70,11 +70,26 @@
               </li>
             </ul>
           </p>
+          <p>
+            tcDisplay:
+            <ul>
+              <li
+                v-for="item in entry.tcDisplay"
+                :key="item"
+              >
+                {{ item }}
+              </li>
+            </ul>
+          </p>
+          <p>
+            <span>tcDisplay Content Type: </span>
+            <span>{{ entry.tcDisplayContentType }}</span>
+          </p>
         </div>
         <pre
           v-if="entry.showJson"
         >
-          {{ JSON.stringify(entry, null, 2) }}
+          {{ JSON.stringify(entry, hideJsonToggle, 2) }}
         </pre>
       </card>
     </div>
@@ -99,7 +114,8 @@ export default {
     )[0],
     entriesArray: (obj) => Object.values(obj).sort(
       (a,b) => a.description.toLowerCase()>b.description.toLowerCase()?1:-1 
-    )
+    ),
+    hideJsonToggle: (k,v) => k=='showJson'?undefined:v
   }
 }
 </script>
