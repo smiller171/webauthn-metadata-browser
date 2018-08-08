@@ -14,7 +14,7 @@
         placeholder="Search"
       >
       <card
-        v-for="entry in query?filteredArray:entriesArray"
+        v-for="entry in filteredArray"
         :key="entry.aaid"
       >
         <h2
@@ -116,6 +116,9 @@ export default {
       )
     },
     filteredArray() {
+      if (! this.query) {
+        return this.entriesArray
+      }
       let options = {
         shouldSort: true,
         tokenize: true,
