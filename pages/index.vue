@@ -1,6 +1,11 @@
 <template>
   <div>
     <div
+      v-if="! mdsData.mdsCollections"
+    >
+      Loading...
+    </div>
+    <div
       v-if="mdsData.mdsCollections"
     >
       <card
