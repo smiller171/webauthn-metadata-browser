@@ -12,7 +12,9 @@
         v-for="(entry, key) in entriesArray(mdsData.mdsCollections[0]['fido-mds1'].entries)"
         :key="key"
       >
-        <h2>{{ entry.description }}</h2>
+        <h2
+          v-html="entry.description.replace(/_/g, '_<wbr>')"
+        />
         <img 
           :src="entry.icon"
           alt=""
