@@ -1,0 +1,38 @@
+env:
+  browser: true
+  es6: true
+  jquery: false
+  node: true
+parserOptions:
+  parser: babel-eslint
+extends:
+  - plugin:vue/recommended
+plugins:
+  - vue
+rules:
+  indent:
+    - error
+    - 2
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - error
+    - single
+  semi:
+    - error
+    - never
+  no-console:
+    - warn
+    - allow:
+      - error
+  no-unused-vars:
+    - error
+  no-undef:
+    - error
+  func-call-spacing:
+    - error
+    - never
+  sort-imports:
+    - warn
+    - ignoreCase: true
