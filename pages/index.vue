@@ -18,18 +18,63 @@
           alt=""
         >
         <p>
-          <span>
-            Status: 
-          </span>
-          <span>
-            {{ latestStatus(entry.statusReports).status }}
-          </span>
+          <input
+            v-model="entry.showJson"
+            type="checkbox"
+          >
+          <span> Show JSON</span>
         </p>
-        <pre>
+        <div
+          v-if="! entry.showJson"
+        >
+          <p>
+            <span>
+              Status: 
+            </span>
+            <span>
+              {{ latestStatus(entry.statusReports).status }}
+            </span>
+          </p>
+          <p>
+            Key Protection:
+            <ul>
+              <li
+                v-for="item in entry.keyProtection"
+                :key="item"
+              >
+                {{ item }}
+              </li>
+            </ul>
+          </p>
+          <p>
+            Matcher Protection:
+            <ul>
+              <li
+                v-for="item in entry.matcherProtection"
+                :key="item"
+              >
+                {{ item }}
+              </li>
+            </ul>
+          </p>
+          <p>
+            Attestation Types:
+            <ul>
+              <li
+                v-for="item in entry.attestationTypes"
+                :key="item"
+              >
+                {{ item }}
+              </li>
+            </ul>
+          </p>
+        </div>
+        <pre
+          v-if="entry.showJson"
+        >
           {{ JSON.stringify(entry, null, 2) }}
         </pre>
       </card>
-      
     </div>
   </div>
 </template>
