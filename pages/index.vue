@@ -8,36 +8,41 @@
     <div
       v-if="mdsData.mdsCollections"
     >
+      <input
+        v-model="query"
+        type="text"
+        placeholder="Search"
+      >
       <card
-        v-for="entry in entriesArray(mdsData.mdsCollections[0]['fido-mds1'].entries)"
+        v-for="entry in query?filteredArray:entriesArray"
         :key="entry.aaid"
       >
         <h2
           v-html="entry.description.replace(/_/g, '_<wbr>')"
         />
-        <img 
+        <img
           :src="entry.icon"
           alt=""
         >
-        <p>
+        <div>
           <input
             v-model="entry.showJson"
             type="checkbox"
           >
           <span> Show JSON</span>
-        </p>
+        </div>
         <div
           v-if="! entry.showJson"
         >
-          <p>
+          <div>
             <span>
-              Status: 
+              Status:
             </span>
             <span>
               {{ latestStatus(entry.statusReports).status }}
             </span>
-          </p>
-          <p>
+          </div>
+          <div>
             Key Protection:
             <ul>
               <li
@@ -47,8 +52,8 @@
                 {{ item }}
               </li>
             </ul>
-          </p>
-          <p>
+          </div>
+          <div>
             Matcher Protection:
             <ul>
               <li
@@ -58,8 +63,8 @@
                 {{ item }}
               </li>
             </ul>
-          </p>
-          <p>
+          </div>
+          <div>
             Attestation Types:
             <ul>
               <li
@@ -69,8 +74,8 @@
                 {{ item }}
               </li>
             </ul>
-          </p>
-          <p>
+          </div>
+          <div>
             tcDisplay:
             <ul>
               <li
@@ -80,11 +85,11 @@
                 {{ item }}
               </li>
             </ul>
-          </p>
-          <p>
+          </div>
+          <div>
             <span>tcDisplay Content Type: </span>
             <span>{{ entry.tcDisplayContentType }}</span>
-          </p>
+          </div>
         </div>
         <pre
           v-if="entry.showJson"
@@ -97,24 +102,41 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Fuse from 'fuse.js'
+import mdsData from '~/static/data.json'
 export default {
-  asyncComputed: {
-    mdsData: {
-      get () {
-        return axios.get('/data.json')
-          .then(response => response.data)
-      },
-      default: {}
+  data: () => ({
+    query: '',
+    mdsData
+  }),
+  computed: {
+    entriesArray() {
+      return Object.values(this.mdsData.mdsCollections[0]['fido-mds1'].entries).sort(
+        (a,b) => a.description.toLowerCase()>b.description.toLowerCase()?1:-1
+      )
+    },
+    filteredArray() {
+      let options = {
+        shouldSort: true,
+        tokenize: true,
+        includeMatches: false,
+        threshold: 0.4,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 1,
+        keys: [
+          'description'
+        ]
+      }
+      let fuse = new Fuse(this.entriesArray, options) // "list" is the item array
+      return fuse.search(this.query)
     }
   },
   methods: {
     latestStatus: (arr) => arr.slice().sort(
       (a,b) => a.effectiveDate>b.effectiveDate?-1:1
     )[0],
-    entriesArray: (obj) => Object.values(obj).sort(
-      (a,b) => a.description.toLowerCase()>b.description.toLowerCase()?1:-1 
-    ),
     hideJsonToggle: (k,v) => k=='showJson'?undefined:v
   }
 }

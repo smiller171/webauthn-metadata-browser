@@ -36,7 +36,6 @@ module.exports = {
     }
   },
   plugins: [
-    '~/plugins/asyncComputed',
     '~/plugins/globalComponents'
   ]
 }

@@ -18,9 +18,8 @@
     }
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "nuxt": "^1.0.0",
-    "vue-async-computed": "^3.4.1"
+    "fuse.js": "^3.2.1",
+    "nuxt": "^1.0.0"
   },
   "devDependencies": {
     "ajv": "^6.5.2",
