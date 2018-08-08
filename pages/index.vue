@@ -27,16 +27,12 @@
       </card>
       
     </div>
-    <!-- {{ JSON.stringify(mdsData, null, 2) }} -->
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
-  // components: {
-  //   Card
-  // },
   asyncComputed: {
     mdsData: {
       get () {
@@ -47,11 +43,9 @@ export default {
     }
   },
   methods: {
-    latestStatus (arr) {
-      return arr.sort(
-        (a,b) => a.effectiveDate>b.effectiveDate?-1:1
-      )[0]
-    }
+    latestStatus: (arr) => arr.slice().sort(
+      (a,b) => a.effectiveDate>b.effectiveDate?-1:1
+    )[0]
   }
 }
 </script>
