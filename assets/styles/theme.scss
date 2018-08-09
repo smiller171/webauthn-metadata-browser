@@ -1,0 +1,18 @@
+html {
+  --color-primary: #3423a6;
+  --color-primary-dark: #000076;
+  --color-primary-light: #6d4ed9;
+  --color-secondary: #f18705;
+  --color-secondary-dark: #b85900;
+  --color-secondary-light: #ffb745;
+  --color-primary-text: #fff;
+  --color-secondary-text: #000;
+  --color-background-dark: #e0e0e0;
+  --color-background-light: #f5f5f5;
+  $mdc-theme-primary: #3423a6;
+  $mdc-theme-accent: #f18705;
+  $mdc-theme-secondary: #f18705;
+  $mdc-theme-background: #f5f5f5;
+  // @import 'material-components-web/material-components-web';
+  @import 'vue-mdc-adapter/dist/textfield/styles';
+}

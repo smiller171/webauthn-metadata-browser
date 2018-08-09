@@ -8,11 +8,19 @@
     <div
       v-if="mdsData.mdsCollections"
     >
-      <input
-        v-model="query"
-        type="text"
-        placeholder="Search"
-      >
+      <div
+        class="filter-container">
+        <mdc-textfield
+          v-model="query"
+          name="filterInput"
+          label="Filter"
+          class="filter-input">
+          <img
+            slot="leading-icon"
+            class="search-icon"
+            src="/images/search.svg">
+        </mdc-textfield>
+      </div>
       <card
         v-for="entry in filteredArray"
         :key="entry.aaid"
@@ -145,5 +153,23 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.filter-container {
+  display: flex;
+  align-items: center;
+  .mdc-text-field__input {
+    box-sizing: content-box;
+  }
+  .mdc-text-field__icon {
+    bottom: 8px;
+  }
+}
+.filter-input {
+  margin-left: auto;
+  margin-right: auto;
+}
+.search-icon {
+  width: 24px;
+}
 </style>
+

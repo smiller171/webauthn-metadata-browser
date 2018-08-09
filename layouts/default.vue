@@ -7,7 +7,7 @@
       >
         <img 
           class="header-logo"
-          src="~/assets/images/webauthn-logo.png" 
+          src="/images/webauthn-logo.png" 
           alt="WebAuthn logo"
         >
       </a>
@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 html {
   font-family: "Open Sans", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
@@ -27,16 +27,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  --color-primary: #3423a6;
-  --color-primary-dark: #000076;
-  --color-primary-light: #6d4ed9;
-  --color-secondary: #f18705;
-  --color-secondary-dark: #b85900;
-  --color-secondary-light: #ffb745;
-  --color-primary-text: #fff;
-  --color-secondary-text: #000;
-  --color-background-dark: #e0e0e0;
-  --color-background-light: #f5f5f5;
   background-color: var(--color-background-light);
   padding: 1rem;
 }
@@ -84,5 +74,8 @@ html {
   padding: 1rem;
   // text-transform: uppercase;
   font-size: 1.5rem;
+}
+header {
+  margin-bottom: 2rem;
 }
 </style>

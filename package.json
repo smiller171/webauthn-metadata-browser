@@ -19,16 +19,20 @@
   },
   "dependencies": {
     "fuse.js": "^3.2.1",
-    "nuxt": "^1.0.0"
+    "material-components-web": "^0.38.0",
+    "normalize.css": "^8.0.0",
+    "nuxt-edge": "^2.0.0-25562603.52780d3",
+    "vue-mdc-adapter": "^0.18.1"
   },
   "devDependencies": {
     "ajv": "^6.5.2",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
+    "eslint-loader": "^2.0.0",
     "eslint-plugin-vue": "^4.0.0",
     "node-sass": "^4.9.2",
+    "path": "^0.12.7",
     "sass-loader": "^7.1.0"
   }
 }

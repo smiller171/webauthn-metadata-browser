@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = {
   /*
   ** Headers of the page
@@ -24,8 +25,8 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
+    extend (config, { isDev }) {
+      if (isDev && process.client) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -33,9 +34,24 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+      config.module.rules.push({
+        loader: 'sass-loader',
+        test: /\.(scss|sass)$/,
+        options: {
+          sourceMap: false,
+          includePaths: [path.resolve(__dirname,'./node_modules')],
+        },
+      })
+    },
+    transpile: [
+      'vue-mdc-adapter'
+    ]
   },
   plugins: [
     '~/plugins/globalComponents'
+  ],
+  css: [
+    'normalize.css/normalize.css',
+    '~/assets/styles/theme.scss'
   ]
 }
