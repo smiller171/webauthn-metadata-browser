@@ -21,90 +21,103 @@
             src="/images/search.svg">
         </mdc-textfield>
       </div>
-      <card
+      <mdc-card
         v-for="entry in filteredArray"
         :key="entry.aaid"
       >
-        <h2
-          v-html="entry.description.replace(/_/g, '_<wbr>')"
-        />
+        <mdc-card-header>
+          <h2
+            v-html="entry.description.replace(/_/g, '_<wbr>')"
+          />
+        </mdc-card-header>
         <img
           :src="entry.icon"
           alt=""
+          class="entry-icon"
         >
         <div>
-          <input
+          <!-- <input
             v-model="entry.showJson"
             type="checkbox"
           >
-          <span> Show JSON</span>
+          <span> Show JSON</span> -->
         </div>
-        <div
-          v-if="! entry.showJson"
-        >
-          <div>
-            <span>
-              Status:
-            </span>
-            <span>
-              {{ latestStatus(entry.statusReports).status }}
-            </span>
+        <mdc-card-text>
+          <div
+            v-if="! entry.showJson"
+          >
+            <div>
+              <span>
+                Status:
+              </span>
+              <span>
+                {{ latestStatus(entry.statusReports).status }}
+              </span>
+            </div>
+            <div>
+              Key Protection:
+              <ul>
+                <li
+                  v-for="item in entry.keyProtection"
+                  :key="item"
+                >
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              Matcher Protection:
+              <ul>
+                <li
+                  v-for="item in entry.matcherProtection"
+                  :key="item"
+                >
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              Attestation Types:
+              <ul>
+                <li
+                  v-for="item in entry.attestationTypes"
+                  :key="item"
+                >
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              tcDisplay:
+              <ul>
+                <li
+                  v-for="item in entry.tcDisplay"
+                  :key="item"
+                >
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <span>tcDisplay Content Type: </span>
+              <span>{{ entry.tcDisplayContentType }}</span>
+            </div>
           </div>
-          <div>
-            Key Protection:
-            <ul>
-              <li
-                v-for="item in entry.keyProtection"
-                :key="item"
-              >
-                {{ item }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            Matcher Protection:
-            <ul>
-              <li
-                v-for="item in entry.matcherProtection"
-                :key="item"
-              >
-                {{ item }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            Attestation Types:
-            <ul>
-              <li
-                v-for="item in entry.attestationTypes"
-                :key="item"
-              >
-                {{ item }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            tcDisplay:
-            <ul>
-              <li
-                v-for="item in entry.tcDisplay"
-                :key="item"
-              >
-                {{ item }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            <span>tcDisplay Content Type: </span>
-            <span>{{ entry.tcDisplayContentType }}</span>
-          </div>
-        </div>
+        </mdc-card-text>
         <pre
           v-if="entry.showJson"
         >
           {{ JSON.stringify(entry, hideJsonToggle, 2) }}
         </pre>
-      </card>
+        <mdc-card-actions>
+          <mdc-card-action-buttons>
+            <mdc-card-action-button
+              @click="toggleJson(entry)">
+              {{ entry.showJson?'Hide':'Show' }} Json
+            </mdc-card-action-button>
+          </mdc-card-action-buttons>
+        </mdc-card-actions>
+      </mdc-card>
     </div>
   </div>
 </template>
@@ -148,7 +161,10 @@ export default {
     latestStatus: (arr) => arr.slice().sort(
       (a,b) => a.effectiveDate>b.effectiveDate?-1:1
     )[0],
-    hideJsonToggle: (k,v) => k=='showJson'?undefined:v
+    hideJsonToggle: (k,v) => k=='showJson'?undefined:v,
+    toggleJson(entry) {
+      return this.$set( entry, 'showJson', !entry.showJson)
+    }
   }
 }
 </script>
@@ -173,6 +189,16 @@ export default {
 }
 .search-icon {
   width: 24px;
+}
+.mdc-card {
+  margin-top: 1rem;
+}
+.mdc-card-header {
+  align-self: center;
+  text-align: center;
+}
+.entry-icon {
+  align-self: center;
 }
 </style>
 

@@ -13,6 +13,6 @@ html {
   $mdc-theme-accent: #f18705;
   $mdc-theme-secondary: #f18705;
   $mdc-theme-background: #f5f5f5;
-  // @import 'material-components-web/material-components-web';
+  @import 'vue-mdc-adapter/dist/card/styles';
   @import 'vue-mdc-adapter/dist/textfield/styles';
 }
