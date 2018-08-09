@@ -76,6 +76,6 @@ html {
   font-size: 1.5rem;
 }
 header {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 </style>
