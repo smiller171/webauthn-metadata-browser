@@ -160,9 +160,12 @@ export default {
   .mdc-text-field__input {
     box-sizing: content-box;
   }
-  .mdc-text-field__icon {
-    bottom: 8px;
+  .mdc-text-field--with-leading-icon {
+    .mdc-text-field__icon {
+      bottom: 8px;
+    }
   }
+  
 }
 .filter-input {
   margin-left: auto;
