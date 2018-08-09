@@ -1,7 +1,17 @@
 <template>
   <div>
     <header>
-      <h1>Test Header</h1>
+      <a 
+        href="https://webauthn.org/" 
+        --title="WebAuthn"
+      >
+        <img 
+          class="header-logo"
+          src="~/assets/images/webauthn-logo.png" 
+          alt="WebAuthn logo"
+        >
+      </a>
+      <h1 class="h1">WebAuthn Metadata Browser</h1>
     </header>
     <nuxt/>
   </div>
@@ -9,7 +19,7 @@
 
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Open Sans", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -17,6 +27,18 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  --color-primary: #3423a6;
+  --color-primary-dark: #000076;
+  --color-primary-light: #6d4ed9;
+  --color-secondary: #f18705;
+  --color-secondary-dark: #b85900;
+  --color-secondary-light: #ffb745;
+  --color-primary-text: #fff;
+  --color-secondary-text: #000;
+  --color-background-dark: #e0e0e0;
+  --color-background-light: #f5f5f5;
+  background-color: var(--color-background-light);
+  padding: 1rem;
 }
 
 *, *:before, *:after {
@@ -24,4 +46,43 @@ html {
   margin: 0;
 }
 
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-style: normal;
+  src: local('Open Sans'),
+       local('Open-Sans-regular'),
+       url('/fonts/Open-Sans-regular/OpenSans-Regular.woff2') format('woff2'),
+       url('/fonts/Open-Sans-regular/OpenSans-Regular.woff') format('woff'),
+       url('/fonts/Open-Sans-regular/OpenSans-Regular.ttf') format('truetype'),
+       url('/fonts/Open-Sans-regular/OpenSans-Regular.svg#OpenSans') format('svg');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-style: normal;
+  src: local('Open Sans Semibold'),
+       local('Open-Sans-600'),
+       url('/fonts/Open-Sans-600/OpenSans-SemiBold.woff2') format('woff2'),
+       url('/fonts/Open-Sans-600/OpenSans-SemiBold.woff') format('woff'),
+       url('/fonts/Open-Sans-600/OpenSans-SemiBold.ttf') format('truetype'),
+       url('/fonts/Open-Sans-600/OpenSans-SemiBold.svg#OpenSans') format('svg');
+}
+</style>
+
+<style lang="scss" scoped>
+.header-logo {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.h1 {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  padding: 1rem;
+  // text-transform: uppercase;
+  font-size: 1.5rem;
+}
 </style>
