@@ -93,7 +93,9 @@
               v-show="entry.showJson">
               <pre
                 :key="entry.aaid + '-json'"
-                v-html="prettyJson(entry)"/>
+                 class="pretty-json">
+{{ JSON.stringify(entry, hideJsonToggle, 2) }}
+              </pre>
             </div>
           </mdc-card-text>
 
