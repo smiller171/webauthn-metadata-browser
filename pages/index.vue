@@ -28,9 +28,9 @@
         >
           <mdc-card-header>
             <h2
-              class="entry-header"
-              v-html="addBreaks(entry.description)"
-            />
+              class="entry-header">
+              {{ addBreaks(entry.description) }}
+            </h2>
           </mdc-card-header>
           <img
             :src="entry.icon"
@@ -48,8 +48,9 @@
                   Status:
                 </mdc-list-item>
                 <mdc-list-item
-                  class="list-item"
-                  v-html="addBreaks(latestStatus(entry.statusReports).status)"/>
+                  class="list-item">
+                  {{ addBreaks(latestStatus(entry.statusReports).status) }}
+                </mdc-list-item>
                 <mdc-list-item class="h3">
                   Key Protection:
                 </mdc-list-item>
@@ -160,8 +161,8 @@ export default {
       return this.$set( entry, 'showJson', !entry.showJson)
     },
     addBreaks: (str) => str
-      .replace(/_/g, '_&#8203;')
-      .replace(/\//g, '/&#8203;'),
+      .replace(/_/g, '_​')
+      .replace(/\//g, '/​'),
     prettyJson(obj) {
       return jsonFormat(obj)
     }
