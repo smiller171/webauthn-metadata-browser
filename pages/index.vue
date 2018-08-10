@@ -87,7 +87,6 @@
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
-                <!-- <mdc-list-group-divider /> -->
                 <mdc-list-item class="h3">
                   tcDisplay Content Type:
                 </mdc-list-item>
