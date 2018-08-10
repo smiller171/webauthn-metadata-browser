@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="! mdsData.mdsCollections"
-    >
-      Loading...
-    </div>
-    <div
-      v-if="mdsData.mdsCollections"
-    >
+    <div>
       <div
         class="filter-container">
         <mdc-textfield
@@ -100,7 +93,7 @@
               class="jsonBody"
               v-html="prettyJson(entry)"/>
           </mdc-card-text>
-          
+
           <mdc-card-actions class="card-actions">
             <mdc-card-action-buttons>
               <mdc-card-action-button
@@ -181,7 +174,7 @@ export default {
       bottom: 8px;
     }
   }
-  
+
 }
 .filter-input {
   margin-left: auto;
@@ -237,14 +230,14 @@ export default {
   --solarized-base2: #eee8d5;
   --solarized-base3: #fdf6e3;
 
-  --solarized-yellow: #b58900; 
-  --solarized-orange: #cb4b16; 
-  --solarized-red: #dc322f; 
-  --solarized-magenta: #d33682; 
-  --solarized-violet: #6c71c4; 
-  --solarized-blue: #268bd2; 
-  --solarized-cyan: #2aa198; 
-  --solarized-green: #859900; 
+  --solarized-yellow: #b58900;
+  --solarized-orange: #cb4b16;
+  --solarized-red: #dc322f;
+  --solarized-magenta: #d33682;
+  --solarized-violet: #6c71c4;
+  --solarized-blue: #268bd2;
+  --solarized-cyan: #2aa198;
+  --solarized-green: #859900;
   background-color: var(--solarized-base3);
   color: var(--solarized-base00);
   overflow-x: scroll;
