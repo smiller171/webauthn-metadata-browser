@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "fuse.js": "^3.2.1",
+    "json-pretty-html": "^1.1.2",
     "material-components-web": "^0.38.0",
     "normalize.css": "^8.0.0",
     "nuxt-edge": "^2.0.0-25562603.52780d3",

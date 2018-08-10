@@ -29,7 +29,7 @@
           <mdc-card-header>
             <h2
               class="entry-header"
-              v-html="entry.description.replace(/_/g, '_<wbr>')"
+              v-html="addBreaks(entry.description)"
             />
           </mdc-card-header>
           <img
@@ -48,8 +48,9 @@
                   Status:
                 </mdc-list-item>
                 <mdc-list-item
-                  class="list-item"
-                  v-html="latestStatus(entry.statusReports).status.replace(/_/g, '_<wbr>')"/>
+                  class="list-item">
+                  {{ addBreaks(latestStatus(entry.statusReports).status) }}
+                </mdc-list-item>
                 <!-- <mdc-list-group-divider /> -->
                 <mdc-list-item class="h3">
                   Key Protection:
@@ -101,9 +102,8 @@
             </div>
             <pre
               v-if="entry.showJson"
-            >
-{{ JSON.stringify(entry, hideJsonToggle, 2) }}
-            </pre>
+              class="jsonBody"
+              v-html="prettyJson(entry)"/>
           </mdc-card-text>
           
           <mdc-card-actions class="card-actions">
@@ -122,6 +122,7 @@
 
 <script>
 import Fuse from 'fuse.js'
+import jsonFormat from 'json-pretty-html'
 import mdsData from '~/static/data.json'
 export default {
   data: () => ({
@@ -162,6 +163,12 @@ export default {
     hideJsonToggle: (k,v) => k=='showJson'?undefined:v,
     toggleJson(entry) {
       return this.$set( entry, 'showJson', !entry.showJson)
+    },
+    addBreaks: (str) => str
+      .replace(/_/g, '_&#8203;')
+      .replace(/\//g, '/&#8203;'),
+    prettyJson(obj) {
+      return jsonFormat(obj)
     }
   }
 }
@@ -224,6 +231,41 @@ export default {
 }
 .entry-body {
   order: 1;
+}
+.json-pretty {
+  --solarized-base03: #002b36;
+  --solarized-base02: #073642;
+  --solarized-base01: #586e75;
+  --solarized-base00: #657b83;
+  --solarized-base0: #839496;
+  --solarized-base1: #93a1a1;
+  --solarized-base2: #eee8d5;
+  --solarized-base3: #fdf6e3;
+
+  --solarized-yellow: #b58900; 
+  --solarized-orange: #cb4b16; 
+  --solarized-red: #dc322f; 
+  --solarized-magenta: #d33682; 
+  --solarized-violet: #6c71c4; 
+  --solarized-blue: #268bd2; 
+  --solarized-cyan: #2aa198; 
+  --solarized-green: #859900; 
+  background-color: var(--solarized-base3);
+  color: var(--solarized-base00);
+  overflow-x: scroll;
+}
+.json-key {
+  color: var(--solarized-red);
+}
+.json-string {
+  color: var(--solarized-cyan);
+  white-space: pre-wrap;
+}
+.json-number {
+  color: var(--solarized-magenta);
+}
+.json-boolean {
+  color: var(--solarized-yellow);
 }
 </style>
 
