@@ -89,14 +89,6 @@
                 </mdc-list-item>
               </mdc-list>
             </div>
-            <div
-              v-show="entry.showJson">
-              <pre
-                :key="entry.aaid + '-json'"
-                 class="pretty-json">
-{{ JSON.stringify(entry, hideJsonToggle, 2) }}
-              </pre>
-            </div>
           </mdc-card-text>
 
           <mdc-card-actions class="card-actions">
