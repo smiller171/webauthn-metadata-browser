@@ -89,7 +89,7 @@
               </mdc-list>
             </div>
             <pre
-              v-if="entry.showJson"
+              v-else
               class="jsonBody"
               v-html="prettyJson(entry)"/>
           </mdc-card-text>
