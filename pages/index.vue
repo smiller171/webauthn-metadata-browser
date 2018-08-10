@@ -48,9 +48,8 @@
                   Status:
                 </mdc-list-item>
                 <mdc-list-item
-                  class="list-item">
-                  {{ addBreaks(latestStatus(entry.statusReports).status) }}
-                </mdc-list-item>
+                  class="list-item"
+                  v-html="addBreaks(latestStatus(entry.statusReports).status)"/>
                 <mdc-list-item class="h3">
                   Key Protection:
                 </mdc-list-item>
