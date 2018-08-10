@@ -51,7 +51,6 @@
                   class="list-item">
                   {{ addBreaks(latestStatus(entry.statusReports).status) }}
                 </mdc-list-item>
-                <!-- <mdc-list-group-divider /> -->
                 <mdc-list-item class="h3">
                   Key Protection:
                 </mdc-list-item>
@@ -61,7 +60,6 @@
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
-                <!-- <mdc-list-group-divider /> -->
                 <mdc-list-item class="h3">
                   Matcher Protection:
                 </mdc-list-item>
@@ -71,7 +69,6 @@
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
-                <!-- <mdc-list-group-divider /> -->
                 <mdc-list-item class="h3">
                   Attestation Types:
                 </mdc-list-item>
@@ -81,7 +78,6 @@
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
-                <!-- <mdc-list-group-divider /> -->
                 <mdc-list-item class="h3">
                   tcDisplay:
                 </mdc-list-item>
