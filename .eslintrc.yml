@@ -36,3 +36,5 @@ rules:
   sort-imports:
     - warn
     - ignoreCase: true
+  vue/valid-v-for:
+    - warn

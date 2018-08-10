@@ -46,62 +46,63 @@
           <div
             v-if="! entry.showJson"
           >
-            <div>
-              <span>
+            <mdc-list
+              bordered
+              dense>
+              <mdc-list-item class="h3">
                 Status:
-              </span>
-              <span>
+              </mdc-list-item>
+              <mdc-list-item class="list-item">
                 {{ latestStatus(entry.statusReports).status }}
-              </span>
-            </div>
-            <div>
-              Key Protection:
-              <ul>
-                <li
-                  v-for="item in entry.keyProtection"
-                  :key="item"
-                >
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-            <div>
-              Matcher Protection:
-              <ul>
-                <li
-                  v-for="item in entry.matcherProtection"
-                  :key="item"
-                >
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-            <div>
-              Attestation Types:
-              <ul>
-                <li
-                  v-for="item in entry.attestationTypes"
-                  :key="item"
-                >
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-            <div>
-              tcDisplay:
-              <ul>
-                <li
-                  v-for="item in entry.tcDisplay"
-                  :key="item"
-                >
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-            <div>
-              <span>tcDisplay Content Type: </span>
-              <span>{{ entry.tcDisplayContentType }}</span>
-            </div>
+              </mdc-list-item>
+              <!-- <mdc-list-group-divider /> -->
+              <mdc-list-item class="h3">
+                Key Protection:
+              </mdc-list-item>
+              <mdc-list-item
+                v-for="(item, index) in entry.keyProtection"
+                :key="index"
+                class="list-item">
+                {{ item }}
+              </mdc-list-item>
+              <!-- <mdc-list-group-divider /> -->
+              <mdc-list-item class="h3">
+                Matcher Protection:
+              </mdc-list-item>
+              <mdc-list-item
+                v-for="(item, index) in entry.matcherProtection"
+                :key="index + 100"
+                class="list-item">
+                {{ item }}
+              </mdc-list-item>
+              <!-- <mdc-list-group-divider /> -->
+              <mdc-list-item class="h3">
+                Attestation Types:
+              </mdc-list-item>
+              <mdc-list-item
+                v-for="(item, index) in entry.attestationTypes"
+                :key="index + 200"
+                class="list-item">
+                {{ item }}
+              </mdc-list-item>
+              <!-- <mdc-list-group-divider /> -->
+              <mdc-list-item class="h3">
+                tcDisplay:
+              </mdc-list-item>
+              <mdc-list-item
+                v-for="(item, index) in entry.tcDisplay"
+                :key="index + 300"
+                class="list-item">
+                {{ item }}
+              </mdc-list-item>
+              <!-- <mdc-list-group-divider /> -->
+              <mdc-list-item class="h3">
+                tcDisplay Content Type:
+              </mdc-list-item>
+              <mdc-list-item class="list-item">
+                {{ entry.tcDisplayContentType }}
+              </mdc-list-item>
+            </mdc-list>
           </div>
         </mdc-card-text>
         <pre
@@ -199,6 +200,14 @@ export default {
 }
 .entry-icon {
   align-self: center;
+}
+.h3 {
+  display: block;
+  font-size: 1.17em;
+  font-weight: bold;
+}
+.list-item {
+  text-indent: 1em;
 }
 </style>
 
