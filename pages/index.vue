@@ -21,104 +21,101 @@
             src="/images/search.svg">
         </mdc-textfield>
       </div>
-      <mdc-card
-        v-for="entry in filteredArray"
-        :key="entry.aaid"
-      >
-        <mdc-card-header>
-          <h2
-            v-html="entry.description.replace(/_/g, '_<wbr>')"
-          />
-        </mdc-card-header>
-        <img
-          :src="entry.icon"
-          alt=""
-          class="entry-icon"
+      <div class="results-container">
+        <mdc-card
+          v-for="entry in filteredArray"
+          :key="entry.aaid"
         >
-        <div>
-          <!-- <input
-            v-model="entry.showJson"
-            type="checkbox"
+          <mdc-card-header>
+            <h2
+              class="entry-header"
+              v-html="entry.description.replace(/_/g, '_<wbr>')"
+            />
+          </mdc-card-header>
+          <img
+            :src="entry.icon"
+            alt=""
+            class="entry-icon"
           >
-          <span> Show JSON</span> -->
-        </div>
-        <mdc-card-text>
-          <div
-            v-if="! entry.showJson"
-          >
-            <mdc-list
-              bordered
-              dense>
-              <mdc-list-item class="h3">
-                Status:
-              </mdc-list-item>
-              <mdc-list-item class="list-item">
-                {{ latestStatus(entry.statusReports).status }}
-              </mdc-list-item>
-              <!-- <mdc-list-group-divider /> -->
-              <mdc-list-item class="h3">
-                Key Protection:
-              </mdc-list-item>
-              <mdc-list-item
-                v-for="(item, index) in entry.keyProtection"
-                :key="index"
-                class="list-item">
-                {{ item }}
-              </mdc-list-item>
-              <!-- <mdc-list-group-divider /> -->
-              <mdc-list-item class="h3">
-                Matcher Protection:
-              </mdc-list-item>
-              <mdc-list-item
-                v-for="(item, index) in entry.matcherProtection"
-                :key="index + 100"
-                class="list-item">
-                {{ item }}
-              </mdc-list-item>
-              <!-- <mdc-list-group-divider /> -->
-              <mdc-list-item class="h3">
-                Attestation Types:
-              </mdc-list-item>
-              <mdc-list-item
-                v-for="(item, index) in entry.attestationTypes"
-                :key="index + 200"
-                class="list-item">
-                {{ item }}
-              </mdc-list-item>
-              <!-- <mdc-list-group-divider /> -->
-              <mdc-list-item class="h3">
-                tcDisplay:
-              </mdc-list-item>
-              <mdc-list-item
-                v-for="(item, index) in entry.tcDisplay"
-                :key="index + 300"
-                class="list-item">
-                {{ item }}
-              </mdc-list-item>
-              <!-- <mdc-list-group-divider /> -->
-              <mdc-list-item class="h3">
-                tcDisplay Content Type:
-              </mdc-list-item>
-              <mdc-list-item class="list-item">
-                {{ entry.tcDisplayContentType }}
-              </mdc-list-item>
-            </mdc-list>
-          </div>
-        </mdc-card-text>
-        <pre
-          v-if="entry.showJson"
-        >
-          {{ JSON.stringify(entry, hideJsonToggle, 2) }}
-        </pre>
-        <mdc-card-actions>
-          <mdc-card-action-buttons>
-            <mdc-card-action-button
-              @click="toggleJson(entry)">
-              {{ entry.showJson?'Hide':'Show' }} Json
-            </mdc-card-action-button>
-          </mdc-card-action-buttons>
-        </mdc-card-actions>
-      </mdc-card>
+          <mdc-card-text class="entry-body">
+            <div
+              v-if="! entry.showJson"
+            >
+              <mdc-list
+                bordered
+                dense>
+                <mdc-list-item class="h3">
+                  Status:
+                </mdc-list-item>
+                <mdc-list-item
+                  class="list-item"
+                  v-html="latestStatus(entry.statusReports).status.replace(/_/g, '_<wbr>')"/>
+                <!-- <mdc-list-group-divider /> -->
+                <mdc-list-item class="h3">
+                  Key Protection:
+                </mdc-list-item>
+                <mdc-list-item
+                  v-for="(item, index) in entry.keyProtection"
+                  :key="index"
+                  class="list-item">
+                  {{ item }}
+                </mdc-list-item>
+                <!-- <mdc-list-group-divider /> -->
+                <mdc-list-item class="h3">
+                  Matcher Protection:
+                </mdc-list-item>
+                <mdc-list-item
+                  v-for="(item, index) in entry.matcherProtection"
+                  :key="index + 100"
+                  class="list-item">
+                  {{ item }}
+                </mdc-list-item>
+                <!-- <mdc-list-group-divider /> -->
+                <mdc-list-item class="h3">
+                  Attestation Types:
+                </mdc-list-item>
+                <mdc-list-item
+                  v-for="(item, index) in entry.attestationTypes"
+                  :key="index + 200"
+                  class="list-item">
+                  {{ item }}
+                </mdc-list-item>
+                <!-- <mdc-list-group-divider /> -->
+                <mdc-list-item class="h3">
+                  tcDisplay:
+                </mdc-list-item>
+                <mdc-list-item
+                  v-for="(item, index) in entry.tcDisplay"
+                  :key="index + 300"
+                  class="list-item">
+                  {{ item }}
+                </mdc-list-item>
+                <!-- <mdc-list-group-divider /> -->
+                <mdc-list-item class="h3">
+                  tcDisplay Content Type:
+                </mdc-list-item>
+                <mdc-list-item class="list-item">
+                  {{ entry.tcDisplayContentType }}
+                </mdc-list-item>
+              </mdc-list>
+            </div>
+            <pre
+              v-if="entry.showJson"
+            >
+{{ JSON.stringify(entry, hideJsonToggle, 2) }}
+            </pre>
+          </mdc-card-text>
+          
+          <mdc-card-actions class="card-actions">
+            <mdc-card-action-buttons>
+              <mdc-card-action-button
+                @click="toggleJson(entry)">
+                {{ entry.showJson?'Hide':'Show' }} Json
+              </mdc-card-action-button>
+            </mdc-card-action-buttons>
+          </mdc-card-actions>
+        </mdc-card>
+      </div>
     </div>
   </div>
 </template>
@@ -193,6 +190,12 @@ export default {
 }
 .mdc-card {
   margin-top: 1rem;
+  min-width: 30%;
+  max-width: 500px;
+  flex-basis: 400px;
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin-right: 1rem;
 }
 .mdc-card-header {
   align-self: center;
@@ -200,6 +203,7 @@ export default {
 }
 .entry-icon {
   align-self: center;
+  max-width: calc(100% - 2rem);
 }
 .h3 {
   display: block;
@@ -208,6 +212,18 @@ export default {
 }
 .list-item {
   text-indent: 1em;
+}
+.results-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: -1rem;
+}
+.entry-header {
+  word-break: break-word;
+}
+.entry-body {
+  order: 1;
 }
 </style>
 
