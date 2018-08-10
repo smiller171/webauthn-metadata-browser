@@ -32,7 +32,7 @@
           >
           <mdc-card-text class="entry-body">
             <div
-              v-if="!entry.showJson"
+              v-show="!entry.showJson"
             >
               <mdc-list
                 :key="entry.aaid + '-list'"
@@ -90,7 +90,7 @@
               </mdc-list>
             </div>
             <div
-              v-else>
+              v-show="entry.showJson">
               <pre
                 :key="entry.aaid + '-json'"
                 v-html="prettyJson(entry)"/>
