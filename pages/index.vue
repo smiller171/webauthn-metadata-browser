@@ -2,36 +2,37 @@
   <div>
     <div
       class="filter-container">
-      <mdc-textfield
+      <input
         v-model="query"
+        type="text"
         name="filterInput"
         label="Filter"
         class="filter-input">
-        <img
+        <!-- <img
           slot="leading-icon"
           class="search-icon"
           src="/images/search.svg"
           alt=""
           aria-hidden="true">
-      </mdc-textfield>
+      </input> -->
     </div>
     <div class="results-container">
-      <mdc-card
+      <div
         v-for="entry in filteredArray"
         :key="entry.key"
       >
-        <mdc-card-header>
-          <h2
-            class="entry-header">
-            {{ addBreaks(entry.description) }}
-          </h2>
-        </mdc-card-header>
+        <!-- <mdc-card-header> -->
+        <h2
+          class="entry-header">
+          {{ addBreaks(entry.description) }}
+        </h2>
+        <!-- </mdc-card-header> -->
         <img
           :src="entry.icon"
           alt=""
           class="entry-icon"
         >
-        <mdc-card-text class="entry-body">
+        <section class="entry-body">
           <div
             :class="{hidden: entry.showJson}"
           >
@@ -44,17 +45,17 @@
             <pre
               v-html="prettyJson(entry)"/>
           </div>
-        </mdc-card-text>
+        </section>
 
-        <mdc-card-actions class="card-actions">
-          <mdc-card-action-buttons>
-            <mdc-card-action-button
-              @click="toggleJson(entry)">
-              {{ entry.showJson?'Hide':'Show' }} Json
-            </mdc-card-action-button>
-          </mdc-card-action-buttons>
-        </mdc-card-actions>
-      </mdc-card>
+        <div class="card-actions">
+          <!-- <mdc-card-action-buttons> -->
+          <button
+            @click="toggleJson(entry)">
+            {{ entry.showJson?'Hide':'Show' }} Json
+          </button>
+          <!-- </mdc-card-action-buttons> -->
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -115,9 +116,9 @@ export default {
   // beforeMount() {
   // console.log(this.$children[0].$refs.icon)
   // },
-  mounted() {
-    this.$children[0].$refs.icon.removeAttribute('role')
-  },
+  // mounted() {
+  // this.$children[0].$refs.icon.removeAttribute('role')
+  // },
   methods: {
     latestStatus: (arr) => arr.slice().sort(
       (a,b) => a.effectiveDate>b.effectiveDate?-1:1

@@ -51,7 +51,7 @@ module.exports = {
     ]
   },
   plugins: [
-    '~/plugins/globalComponents'
+    // '~/plugins/globalComponents'
   ],
   css: [
     'normalize.css/normalize.css',
