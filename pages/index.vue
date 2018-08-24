@@ -10,7 +10,9 @@
         <img
           slot="leading-icon"
           class="search-icon"
-          src="/images/search.svg">
+          src="/images/search.svg"
+          alt=""
+          aria-hidden="true">
       </mdc-textfield>
     </div>
     <div class="results-container">
@@ -110,6 +112,12 @@ export default {
       return fuse.search(this.query)
     }
   },
+  // beforeMount() {
+  // console.log(this.$children[0].$refs.icon)
+  // },
+  mounted() {
+    this.$children[0].$refs.icon.removeAttribute('role')
+  },
   methods: {
     latestStatus: (arr) => arr.slice().sort(
       (a,b) => a.effectiveDate>b.effectiveDate?-1:1
@@ -122,7 +130,7 @@ export default {
     prettyJson(obj) {
       return jsonFormat(this.hideExtraJson(obj))
     }
-  }
+  },
 }
 </script>
 

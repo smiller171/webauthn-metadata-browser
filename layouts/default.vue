@@ -53,6 +53,7 @@ html {
   font-family: 'Open Sans';
   font-weight: 400;
   font-style: normal;
+  font-display: fallback;
   src: local('Open Sans'),
        local('Open-Sans-regular'),
        url('/fonts/Open-Sans-regular/OpenSans-Regular.woff2') format('woff2'),
@@ -65,6 +66,7 @@ html {
   font-family: 'Open Sans';
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
   src: local('Open Sans Semibold'),
        local('Open-Sans-600'),
        url('/fonts/Open-Sans-600/OpenSans-SemiBold.woff2') format('woff2'),
