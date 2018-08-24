@@ -17,7 +17,7 @@
       <div class="results-container">
         <mdc-card
           v-for="entry in filteredArray"
-          :key="entry.aaid"
+          :key="entry.key"
         >
           <mdc-card-header>
             <h2
@@ -32,9 +32,10 @@
           >
           <mdc-card-text class="entry-body">
             <div
-              v-if="! entry.showJson"
+              :class="{hidden: entry.showJson}"
             >
               <mdc-list
+                :key="entry.key + '-list'"
                 bordered
                 dense>
                 <mdc-list-item class="h3">
@@ -49,7 +50,7 @@
                 </mdc-list-item>
                 <mdc-list-item
                   v-for="(item, index) in entry.keyProtection"
-                  :key="index"
+                  :key="entry.key + '-keyProtection-' + index"
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
@@ -58,7 +59,7 @@
                 </mdc-list-item>
                 <mdc-list-item
                   v-for="(item, index) in entry.matcherProtection"
-                  :key="index + 100"
+                  :key="entry.key + '-matcherProtection-' + index"
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
@@ -67,7 +68,7 @@
                 </mdc-list-item>
                 <mdc-list-item
                   v-for="(item, index) in entry.attestationTypes"
-                  :key="index + 200"
+                  :key="entry.key + '-attestationType-' + index"
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
@@ -76,7 +77,7 @@
                 </mdc-list-item>
                 <mdc-list-item
                   v-for="(item, index) in entry.tcDisplay"
-                  :key="index + 300"
+                  :key="entry.key + '-tcDisplay-' + index"
                   class="list-item">
                   {{ item }}
                 </mdc-list-item>
@@ -88,10 +89,11 @@
                 </mdc-list-item>
               </mdc-list>
             </div>
-            <pre
-              v-else
-              class="jsonBody"
-              v-html="prettyJson(entry)"/>
+            <div
+              :class="{hidden: !entry.showJson}">
+              <pre
+                v-html="prettyJson(entry)"/>
+            </div>
           </mdc-card-text>
 
           <mdc-card-actions class="card-actions">
@@ -113,16 +115,28 @@ import Fuse from 'fuse.js'
 import jsonFormat from 'json-pretty-html'
 import mdsData from '~/static/data.json'
 export default {
-  data: () => ({
-    query: '',
-    mdsData
-  }),
+  data() {
+    let entriesArray = Object.entries(mdsData.mdsCollections[0]['fido-mds1'].entries).map(
+      arr => ({
+        key: arr[0],
+        showJson: false,
+        ...arr[1]
+      })
+    ).sort(
+      (a,b) => {
+        if (a.description.toLowerCase() === b.description.toLowerCase()) {
+          return a.key>b.key?1:-1
+        }
+        return a.description.toLowerCase()>b.description.toLowerCase()?1:-1
+      }
+    )
+    return {
+      query: '',
+      mdsData,
+      entriesArray
+    }
+  },
   computed: {
-    entriesArray() {
-      return Object.values(this.mdsData.mdsCollections[0]['fido-mds1'].entries).sort(
-        (a,b) => a.description.toLowerCase()>b.description.toLowerCase()?1:-1
-      )
-    },
     filteredArray() {
       if (! this.query) {
         return this.entriesArray
@@ -148,7 +162,7 @@ export default {
     latestStatus: (arr) => arr.slice().sort(
       (a,b) => a.effectiveDate>b.effectiveDate?-1:1
     )[0],
-    hideJsonToggle: (k,v) => k=='showJson'?undefined:v,
+    hideExtraJson: ({key, showJson, ...obj}) => obj,
     toggleJson(entry) {
       return this.$set( entry, 'showJson', !entry.showJson)
     },
@@ -156,7 +170,7 @@ export default {
       .replace(/_/g, '_​')
       .replace(/\//g, '/​'),
     prettyJson(obj) {
-      return jsonFormat(obj)
+      return jsonFormat(this.hideExtraJson(obj))
     }
   }
 }
@@ -254,6 +268,9 @@ export default {
 }
 .json-boolean {
   color: var(--solarized-yellow);
+}
+.hidden {
+  display: none;
 }
 </style>
 
