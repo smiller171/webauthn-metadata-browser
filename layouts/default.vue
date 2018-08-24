@@ -1,21 +1,34 @@
 <template>
-  <div>
-    <header>
-      <a 
-        href="https://webauthn.org/" 
-        --title="WebAuthn"
-      >
-        <img 
-          class="header-logo"
-          src="/images/webauthn-logo.png" 
-          alt="WebAuthn logo"
+  <div class="flex">
+    <div class="content">
+      <header>
+        <a 
+          href="https://webauthn.org/" 
+          --title="WebAuthn"
         >
-      </a>
-      <h1 class="h1">WebAuthn Metadata Browser</h1>
-    </header>
-    <nuxt/>
+          <img 
+            class="header-logo"
+            src="/images/webauthn-logo.png" 
+            alt="WebAuthn logo"
+          >
+        </a>
+        <h1 class="h1">WebAuthn Metadata Browser</h1>
+      </header>
+      <nuxt/>
+    </div>
+    <my-footer/>
   </div>
 </template>
+
+<script>
+import MyFooter from '~/components/Footer'
+export default {
+  components: {
+    MyFooter
+  }
+}
+</script>
+
 
 <style lang="scss">
 html {
@@ -28,7 +41,7 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   background-color: var(--color-background-light);
-  padding: 1rem;
+  // padding: 1rem;
 }
 
 *, *:before, *:after {
@@ -62,6 +75,16 @@ html {
 </style>
 
 <style lang="scss" scoped>
+.flex {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.content {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 1rem;
+}
 .header-logo {
   max-width: 100%;
   margin-left: auto;
@@ -72,10 +95,14 @@ html {
   background-color: var(--color-primary);
   color: var(--color-primary-text);
   padding: 1rem;
-  // text-transform: uppercase;
   font-size: 1.5rem;
 }
 header {
-  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+.footer {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  flex-shrink: 0;
 }
 </style>
