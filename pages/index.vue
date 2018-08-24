@@ -1,120 +1,72 @@
 <template>
   <div>
-    <div>
-      <div
-        class="filter-container">
-        <mdc-textfield
-          v-model="query"
-          name="filterInput"
-          label="Filter"
-          class="filter-input">
-          <img
-            slot="leading-icon"
-            class="search-icon"
-            src="/images/search.svg">
-        </mdc-textfield>
-      </div>
-      <div class="results-container">
-        <mdc-card
-          v-for="entry in filteredArray"
-          :key="entry.key"
+    <div
+      class="filter-container">
+      <mdc-textfield
+        v-model="query"
+        name="filterInput"
+        label="Filter"
+        class="filter-input">
+        <img
+          slot="leading-icon"
+          class="search-icon"
+          src="/images/search.svg">
+      </mdc-textfield>
+    </div>
+    <div class="results-container">
+      <mdc-card
+        v-for="entry in filteredArray"
+        :key="entry.key"
+      >
+        <mdc-card-header>
+          <h2
+            class="entry-header">
+            {{ addBreaks(entry.description) }}
+          </h2>
+        </mdc-card-header>
+        <img
+          :src="entry.icon"
+          alt=""
+          class="entry-icon"
         >
-          <mdc-card-header>
-            <h2
-              class="entry-header">
-              {{ addBreaks(entry.description) }}
-            </h2>
-          </mdc-card-header>
-          <img
-            :src="entry.icon"
-            alt=""
-            class="entry-icon"
+        <mdc-card-text class="entry-body">
+          <div
+            :class="{hidden: entry.showJson}"
           >
-          <mdc-card-text class="entry-body">
-            <div
-              :class="{hidden: entry.showJson}"
-            >
-              <mdc-list
-                :key="entry.key + '-list'"
-                bordered
-                dense>
-                <mdc-list-item class="h3">
-                  Status:
-                </mdc-list-item>
-                <mdc-list-item
-                  class="list-item">
-                  {{ addBreaks(latestStatus(entry.statusReports).status) }}
-                </mdc-list-item>
-                <mdc-list-item class="h3">
-                  Key Protection:
-                </mdc-list-item>
-                <mdc-list-item
-                  v-for="(item, index) in entry.keyProtection"
-                  :key="entry.key + '-keyProtection-' + index"
-                  class="list-item">
-                  {{ item }}
-                </mdc-list-item>
-                <mdc-list-item class="h3">
-                  Matcher Protection:
-                </mdc-list-item>
-                <mdc-list-item
-                  v-for="(item, index) in entry.matcherProtection"
-                  :key="entry.key + '-matcherProtection-' + index"
-                  class="list-item">
-                  {{ item }}
-                </mdc-list-item>
-                <mdc-list-item class="h3">
-                  Attestation Types:
-                </mdc-list-item>
-                <mdc-list-item
-                  v-for="(item, index) in entry.attestationTypes"
-                  :key="entry.key + '-attestationType-' + index"
-                  class="list-item">
-                  {{ item }}
-                </mdc-list-item>
-                <mdc-list-item class="h3">
-                  tcDisplay:
-                </mdc-list-item>
-                <mdc-list-item
-                  v-for="(item, index) in entry.tcDisplay"
-                  :key="entry.key + '-tcDisplay-' + index"
-                  class="list-item">
-                  {{ item }}
-                </mdc-list-item>
-                <mdc-list-item class="h3">
-                  tcDisplay Content Type:
-                </mdc-list-item>
-                <mdc-list-item class="list-item">
-                  {{ entry.tcDisplayContentType }}
-                </mdc-list-item>
-              </mdc-list>
-            </div>
-            <div
-              :class="{hidden: !entry.showJson}">
-              <pre
-                v-html="prettyJson(entry)"/>
-            </div>
-          </mdc-card-text>
+            <metadata-list
+              :entry="entry"
+            />
+          </div>
+          <div
+            :class="{hidden: !entry.showJson}">
+            <pre
+              v-html="prettyJson(entry)"/>
+          </div>
+        </mdc-card-text>
 
-          <mdc-card-actions class="card-actions">
-            <mdc-card-action-buttons>
-              <mdc-card-action-button
-                @click="toggleJson(entry)">
-                {{ entry.showJson?'Hide':'Show' }} Json
-              </mdc-card-action-button>
-            </mdc-card-action-buttons>
-          </mdc-card-actions>
-        </mdc-card>
-      </div>
+        <mdc-card-actions class="card-actions">
+          <mdc-card-action-buttons>
+            <mdc-card-action-button
+              @click="toggleJson(entry)">
+              {{ entry.showJson?'Hide':'Show' }} Json
+            </mdc-card-action-button>
+          </mdc-card-action-buttons>
+        </mdc-card-actions>
+      </mdc-card>
     </div>
   </div>
 </template>
 
 <script>
+import addBreaks from '~/assets/wordbreak'
 import Fuse from 'fuse.js'
 import jsonFormat from 'json-pretty-html'
 import mdsData from '~/static/data.json'
+import MetadataList from '~/components/MetadataList'
 export default {
+  components: {
+    MetadataList
+  },
   data() {
     let entriesArray = Object.entries(mdsData.mdsCollections[0]['fido-mds1'].entries).map(
       arr => ({
@@ -166,9 +118,7 @@ export default {
     toggleJson(entry) {
       return this.$set( entry, 'showJson', !entry.showJson)
     },
-    addBreaks: (str) => str
-      .replace(/_/g, '_​')
-      .replace(/\//g, '/​'),
+    addBreaks: (str) => addBreaks(str),
     prettyJson(obj) {
       return jsonFormat(this.hideExtraJson(obj))
     }
