@@ -32,7 +32,7 @@
           >
           <mdc-card-text class="entry-body">
             <div
-              v-show="!entry.showJson"
+              :class="{hidden: entry.showJson}"
             >
               <mdc-list
                 :key="entry.aaid + '-list'"
@@ -88,6 +88,11 @@
                   {{ entry.tcDisplayContentType }}
                 </mdc-list-item>
               </mdc-list>
+            </div>
+            <div
+              :class="{hidden: !entry.showJson}">
+              <pre
+                v-html="prettyJson(entry)"/>
             </div>
           </mdc-card-text>
 
@@ -251,6 +256,9 @@ export default {
 }
 .json-boolean {
   color: var(--solarized-yellow);
+}
+.hidden {
+  display: none;
 }
 </style>
 
