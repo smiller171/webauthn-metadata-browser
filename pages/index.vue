@@ -162,7 +162,7 @@ export default {
     latestStatus: (arr) => arr.slice().sort(
       (a,b) => a.effectiveDate>b.effectiveDate?-1:1
     )[0],
-    hideJsonToggle: (k,v) => k=='showJson'?undefined:v,
+    hideExtraJson: ({key, showJson, ...obj}) => obj,
     toggleJson(entry) {
       return this.$set( entry, 'showJson', !entry.showJson)
     },
@@ -170,7 +170,7 @@ export default {
       .replace(/_/g, '_​')
       .replace(/\//g, '/​'),
     prettyJson(obj) {
-      return jsonFormat(obj)
+      return jsonFormat(this.hideExtraJson(obj))
     }
   }
 }

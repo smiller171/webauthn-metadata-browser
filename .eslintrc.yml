@@ -28,6 +28,7 @@ rules:
       - error
   no-unused-vars:
     - error
+    - ignoreRestSiblings: true
   no-undef:
     - error
   func-call-spacing:
