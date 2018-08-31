@@ -1,21 +1,46 @@
 <template>
   <footer class="footer">
     <a href="https://millergeek.xyz">Website by Scott Miller</a>
+    <div class="iconDiv">
+      <a href="https://github.com/smiller171/webauthn-metadata-browser">
+        Source
+        <github-icon
+          class="iconImg"
+        />
+      </a>
+    </div>
+    
   </footer>
 </template>
 
-<style scoped>
+<script>
+import GithubIcon from '~/components/GithubIcon'
+export default {
+  components: {
+    GithubIcon
+  }
+}
+</script>
+
+
+<style lang="scss" scoped>
 .footer {
-  /* position: fixed; */
-  /* left: 0; */
-  /* bottom: 0; */
   width: 100%;
   padding: 1rem;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
 }
 a {
   color: inherit;
   text-decoration: inherit;
   font-weight: bold
+}
+.iconDiv {
+  text-align: center;
+}
+.iconImg {
+  height: 1.2em;
+  vertical-align: middle;
+  fill: currentColor;
 }
 </style>
